@@ -1,4 +1,5 @@
 import React from 'react';
+import APIUrl from '../../helpers/environment';
 import MovieTable from './MovieTable';
 import { Container, Row, Col } from 'reactstrap';
 

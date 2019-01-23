@@ -1,4 +1,6 @@
 import React, {Component} from 'react';
+import APIUrl from '../../helpers/environment';
+
 import { Button, Form, FormGroup, Label, Input, Row, Col } from 'reactstrap';
 
 class Auth extends Component {
@@ -18,7 +20,7 @@ class Auth extends Component {
 
     handleSubmit = (event) => {
         event.preventDefault();
-        const url = this.state.login ? 'http://localhost:3000/api/user/login' : 'http://localhost:3000/api/user/create';
+        const url = this.state.login ? `${APIUrl}/api/user/login` : `${APIUrl}/api/user/create`;
 
         fetch(url, {
             method:'POST',
