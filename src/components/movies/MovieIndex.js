@@ -41,10 +41,10 @@ class MovieIndex extends React.Component {
                     let movieID = json.results[0].id;
                     let movieTitle = json.results[0].title;
                     let movieDescription = json.results[0].overview;
-                    // let img = document.createElement("img");
-                    // img.setAttribute("src", imageURL);
-                    // this.setState({movie_id:movieID,title:movieTitle,description:movieDescription,poster:imageURL});
-                    // document.getElementById('placeholder').appendChild(img);
+                    let img = document.createElement("img");
+                    img.setAttribute("src", imageURL);
+                    this.setState({movie_id:movieID,title:movieTitle,description:movieDescription,poster:imageURL});
+                    document.getElementById('placeholder').appendChild(img);
                 } else {
                     let tryAgain = document.createElement("p");
                     var text = document.createTextNode("Sorry, the search you just tried didn't work. Try again!");
