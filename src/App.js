@@ -1,25 +1,64 @@
 import React, { Component } from 'react';
-import logo from './logo.svg';
-import './App.css';
+import Auth from './components/auth/Auth';
+import Main from './components/main/Main';
+import Sitebar from './components/main/Navbar';
+import {
+  BrowserRouter as Router,
+  Route
+} from 'react-router-dom';
+import { Container } from 'reactstrap';
 
 class App extends Component {
+  constructor(props){
+    super(props);
+    this.state = {
+      sessionToken:''
+    }
+  }
+
+  componentDidMount() {
+    document.title="Movie Diary";
+    const token = sessionStorage.getItem('token')
+    if (token && !this.state.sessionToken) {
+      this.setState({ sessionToken: token });
+    }
+  }
+
+  setSessionState = (token) => {
+    sessionStorage.setItem('token', token);
+    this.setState({ sessionToken: token });
+  }
+
+  logout = () => {
+    this.setState({ sessionToken: ''});
+    sessionStorage.clear();
+  }
+
+  protectedViews = () => {
+    if (this.state.sessionToken === sessionStorage.getItem('token')) {
+      return (
+        <Route path='/' exact >
+          <Container>
+            <Sitebar clickLogout={this.logout}/>
+            <Main sessionToken={this.state.sessionToken}/>
+          </Container>
+        </Route>
+      )
+    } else {
+      return (
+        <Route path="/auth" >
+          <Auth setToken={this.setSessionState}/>
+        </Route>
+      )
+    }
+  }
+
   render() {
     return (
-      <div className="App">
-        <header className="App-header">
-          <img src={logo} className="App-logo" alt="logo" />
-          <p>
-            Edit <code>src/App.js</code> and save to reload.
-          </p>
-          <a
-            className="App-link"
-            href="https://reactjs.org"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Learn React
-          </a>
-        </header>
+      <div>
+        <Router>
+          {this.protectedViews()}
+        </Router>
       </div>
     );
   }
