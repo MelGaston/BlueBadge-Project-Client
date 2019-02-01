@@ -1,13 +1,33 @@
 import React from 'react';
+import Radium from 'radium';
 import {
-    Collapse,
     Navbar,
-    NavbarToggler,
     NavbarBrand,
     Nav,
     NavItem,
-    Button
+    NavLink
 } from 'reactstrap';
+
+var styles = {
+    navBar:{
+        backgroundColor:'#344167',
+        padding:'0 5.5vw 0 10vw'
+    },
+    navItem: {
+        textTransform:'uppercase',
+        backgroundColor:'#F6BF49',
+        padding:'0.5vh 1vw',
+        borderRadius:'0.25vh',
+        margin:'1vh 2vh',
+        color:'#FFFFFF',
+        cursor:'pointer'
+    },
+    navBrand:{
+        color:'#F6BF49',
+        fontFamily:"'Monoton', sans-serif",
+        fontSize:'2em'
+    }
+}
 
 class Sitebar extends React.Component {
     constructor(props) {
@@ -25,21 +45,16 @@ class Sitebar extends React.Component {
 
     render() {
         return (
-            <div>
-                <Navbar color="dark" className="navbar-dark" expand="md">
-                    <NavbarBrand href="/">Movie Diary</NavbarBrand>
-                    <NavbarToggler onClick={this.toggle}/>
-                    <Collapse isOpen={this.state.isOpen} navbar>
-                        <Nav className="ml-auto" navbar>
-                            <NavItem>
-                                <Button onClick={() => this.props.clickLogout()}>Logout</Button>
-                            </NavItem>
-                        </Nav>
-                    </Collapse>
-                </Navbar>
-            </div>
+            <Navbar style={styles.navBar} expand="md">
+                <NavbarBrand href="/" style={styles.navBrand}>MovieLog</NavbarBrand>
+                <Nav className="ml-auto" navbar>
+                    <NavItem>
+                        <NavLink onClick={() => this.props.clickLogout()} style={styles.navItem}>Logout</NavLink>
+                    </NavItem>
+                </Nav>
+            </Navbar>
         )
     }
 }
 
-export default Sitebar;
+export default Radium(Sitebar);

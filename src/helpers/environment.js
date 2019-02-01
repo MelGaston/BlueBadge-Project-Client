@@ -10,6 +10,10 @@ switch (window.location.hostname) {
     case 'mg-movie-log-client.herokuapp.com':
         // this is the full url of your deployed API
         APIURL = 'https://mg-movie-log.herokuapp.com'
+        break;
+    default:
+        console.log("Server malfunction.")
+        break;
 }
 
 export default APIURL;
